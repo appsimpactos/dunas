@@ -686,7 +686,7 @@ class Voucher {
         $sql = "SELECT 
                     COUNT(*) as total,
                     SUM(CASE WHEN status = 'active' THEN 1 ELSE 0 END) as active,
-                    SUM(CASE WHEN status = 'used' THEN 1 ELSE 0 END) as used,
+                    SUM(CASE WHEN status = 'used' OR status = 'registered' THEN 1 ELSE 0 END) as used,
                     SUM(CASE WHEN status = 'registered' THEN 1 ELSE 0 END) as registered,
                     SUM(CASE WHEN status = 'cancelled' THEN 1 ELSE 0 END) as cancelled,
                     SUM(CASE WHEN status = 'active' THEN capacity ELSE 0 END) as total_active_capacity

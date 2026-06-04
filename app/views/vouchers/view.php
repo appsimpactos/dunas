@@ -106,6 +106,29 @@
                 </div>
             </div>
             <?php endif; ?>
+
+            <?php if ($voucher['status'] === 'registered'): ?>
+            <div class="mt-6 pt-6 border-t border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Información de Uso</h3>
+                
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-600 mb-1">Fecha de Uso</label>
+                        <p class="text-gray-900"><?php echo !empty($voucher['used_at']) ? date('d/m/Y H:i:s', strtotime($voucher['used_at'])) : 'No disponible'; ?></p>
+                    </div>
+                    
+                    <?php if (!empty($voucher['used_ticket_code'])): ?>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-600 mb-1">Ticket de Acceso</label>
+                        <a href="<?php echo BASE_URL; ?>/access/view/<?php echo $voucher['used_by_access_log_id']; ?>" 
+                           class="text-blue-600 hover:text-blue-800">
+                            <?php echo htmlspecialchars($voucher['used_ticket_code']); ?>
+                        </a>
+                    </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <?php endif; ?>
         </div>
         
         <!-- QR Code Card -->

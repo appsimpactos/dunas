@@ -134,6 +134,7 @@
     </div>
 
     <?php $showCompanyColumn = ($filters['status'] === 'active'); ?>
+    <?php $showFechaUsoColumn = ($filters['status'] === 'registered'); ?>
     <!-- Tabla de Vales -->
     <div class="bg-white rounded-lg shadow-md overflow-hidden">
         <div class="overflow-x-auto">
@@ -163,6 +164,11 @@
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Fecha Creación
                         </th>
+                        <?php if ($showFechaUsoColumn): ?>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Fecha de Uso
+                        </th>
+                        <?php endif; ?>
                         <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Acciones
                         </th>
@@ -171,7 +177,7 @@
                 <tbody class="bg-white divide-y divide-gray-200">
                     <?php if (empty($vouchers)): ?>
                     <tr>
-                        <td colspan="<?php echo $showCompanyColumn ? '8' : '7'; ?>" class="px-6 py-8 text-center text-gray-500">
+                        <td colspan="<?php echo $showCompanyColumn ? ($showFechaUsoColumn ? '9' : '8') : ($showFechaUsoColumn ? '8' : '7'); ?>" class="px-6 py-8 text-center text-gray-500">
                             <i class="fas fa-inbox text-4xl mb-3 text-gray-400"></i>
                             <p>No se encontraron vales</p>
                         </td>
@@ -228,6 +234,15 @@
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                             <?php echo date('d/m/Y H:i', strtotime($voucher['created_at'])); ?>
                         </td>
+                        <?php if ($showFechaUsoColumn): ?>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <?php if ($voucher['status'] === 'registered' && !empty($voucher['used_at'])): ?>
+                                <?php echo date('d/m/Y H:i', strtotime($voucher['used_at'])); ?>
+                            <?php else: ?>
+                                -
+                            <?php endif; ?>
+                        </td>
+                        <?php endif; ?>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <a href="<?php echo BASE_URL; ?>/vouchers/detail/<?php echo $voucher['id']; ?>" 
                                class="text-blue-600 hover:text-blue-900 mr-3">
