@@ -31,6 +31,7 @@ class VoucherController extends BaseController {
             'serie' => $_GET['serie'] ?? '',
             'status' => $_GET['status'] ?? '',
             'search' => $_GET['search'] ?? '',
+            'capacity' => $_GET['capacity'] ?? '',
             'limit' => $perPage,
             'offset' => $offset
         ];
@@ -38,6 +39,7 @@ class VoucherController extends BaseController {
         $vouchers = $this->voucherModel->getAll($filters);
         $stats = $this->voucherModel->getStats();
         $series = $this->voucherModel->getUniqueSeries();
+        $capacities = $this->voucherModel->getUniqueCapacities();
         
         // Get total count for pagination
         $totalVouchers = $this->voucherModel->getTotalCount($filters);
@@ -48,6 +50,7 @@ class VoucherController extends BaseController {
             'vouchers' => $vouchers,
             'stats' => $stats,
             'series' => $series,
+            'capacities' => $capacities,
             'filters' => $filters,
             'currentPage' => $page,
             'totalPages' => $totalPages,

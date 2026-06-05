@@ -90,7 +90,7 @@
 
     <!-- Filtros -->
     <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-        <form method="GET" action="<?php echo BASE_URL; ?>/vouchers" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <form method="GET" action="<?php echo BASE_URL; ?>/vouchers" class="grid grid-cols-1 md:grid-cols-5 gap-4">
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Serie</label>
                 <select name="serie" class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500">
@@ -113,6 +113,19 @@
                     <option value="registered" <?php echo ($filters['status'] === 'registered') ? 'selected' : ''; ?>>Registrado</option>
                     <option value="used" <?php echo ($filters['status'] === 'used') ? 'selected' : ''; ?>>Usado</option>
                     <option value="cancelled" <?php echo ($filters['status'] === 'cancelled') ? 'selected' : ''; ?>>Cancelado</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Capacidad</label>
+                <select name="capacity" class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500">
+                    <option value="">Todas las capacidades</option>
+                    <?php foreach ($capacities as $c): ?>
+                    <option value="<?php echo (int)$c['capacity']; ?>" 
+                            <?php echo ($filters['capacity'] == $c['capacity']) ? 'selected' : ''; ?>>
+                        <?php echo number_format($c['capacity']); ?> L
+                    </option>
+                    <?php endforeach; ?>
                 </select>
             </div>
 

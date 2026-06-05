@@ -43,6 +43,11 @@ class Voucher {
             $params[] = $search;
         }
         
+        if (!empty($filters['capacity'])) {
+            $sql .= " AND v.capacity = ?";
+            $params[] = (int)$filters['capacity'];
+        }
+        
         $sql .= " ORDER BY v.created_at DESC, v.serie ASC, v.folio ASC";
         
         // Add pagination if specified
@@ -670,6 +675,11 @@ class Voucher {
             $params[] = $search;
         }
         
+        if (!empty($filters['capacity'])) {
+            $sql .= " AND v.capacity = ?";
+            $params[] = (int)$filters['capacity'];
+        }
+        
         if (!empty($filters['client_id'])) {
             $sql .= " AND v.client_id = ?";
             $params[] = $filters['client_id'];
@@ -700,6 +710,14 @@ class Voucher {
      */
     public function getUniqueSeries() {
         $sql = "SELECT DISTINCT serie FROM vouchers ORDER BY serie ASC";
+        return $this->db->fetchAll($sql);
+    }
+    
+    /**
+     * Obtiene las capacidades únicas de vales
+     */
+    public function getUniqueCapacities() {
+        $sql = "SELECT DISTINCT capacity FROM vouchers ORDER BY capacity ASC";
         return $this->db->fetchAll($sql);
     }
     
